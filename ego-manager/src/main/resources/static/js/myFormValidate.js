@@ -1,38 +1,36 @@
 /**
  * ajax 提交表单 到后台去验证然后回到前台提示错误
  * 验证通过后,再通过 form 自动提交
- * form_id:表单id
- * submit_url:提交的url
- * add_url:继续新增的url
- * list_url:返回列表的url
- * hiddenId:隐藏域id
+ * form_id:表单 id
+ * submit_url:提交的 url
+ * add_url:继续新增的 url
+ * list_url:返回列表的 url
+ * hiddenId:隐藏域 id
  */
-before_request = 1; // 标识上一次ajax 请求有没回来, 没有回来不再进行下一次
-function ajax_submit_form(form_id, submit_url, add_url, list_url, hiddenId) {
-
+before_request = 1; // 标识上一次 ajax 请求有没回来, 没有回来不再进行下一次
+function ajax_submit_form(form_id, submit_url, add_url, list_url,hiddenId) {
     if (before_request == 0)
         return false;
-
     $.ajax({
         type: "POST",
         url: submit_url,
-        data: $('#' + form_id).serialize(),// 你的formid
+        data: $('#' + form_id).serialize(),// 你的 formid
         dataType: "JSON",
         error: function (request) {
             alert("服务器繁忙, 请联系管理员!");
         },
         success: function (result) {
-            before_request = 1; // 标识ajax 请求已经返回
+            before_request = 1; // 标识 ajax 请求已经返回
             console.log(result)
             if (200 == result.code) {
                 layer.confirm("保存成功",
                     {
                         btn: ['继续新增', '返回列表', '留在本页'],
                         btn3: function (index) {
-                            //将商品id设置至隐藏域
+                            //将商品 id 设置至隐藏域
                             $("#" + hiddenId).val(result.message);
                             // 修改商品相册上传功能按钮为可用
-                            $("#file-goods-images").attr("disabled", false);
+                            $("#file-goods-images").attr("disabled","false")
                             layer.close(index);
                         }
                     },
@@ -46,8 +44,10 @@ function ajax_submit_form(form_id, submit_url, add_url, list_url, hiddenId) {
             }
         }
     });
-    before_request = 0; // 标识ajax 请求已经发出
+    before_request = 0; // 标识 ajax 请求已经发出
 }
+
+
 
 /**
  * 在ajax 返回提示错误时， 输入框改变时提示 将隐藏

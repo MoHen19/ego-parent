@@ -21,7 +21,7 @@
 
 		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 		<!-- type指定生成注释使用的对象 -->
-		<commentGenerator type="com.shsxt.generator.EgoCommentGenerator">
+		<commentGenerator type="com.ego.generator.EgoCommentGenerator">
 			<property name="suppressAllComments" value="false"/>
 		</commentGenerator>
 
@@ -46,7 +46,7 @@
 
 		<!-- 以下内容，需要改动 -->
 		<!-- java类生成的位置  -->
-		<javaModelGenerator targetPackage="com.shsxt.generator.pojo" targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.ego.generator.pojo" targetProject="src/main/java">
 			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 			<property name="enableSubPackages" value="true"/>
 			<!-- 从数据库返回的值去除前后空格 -->
@@ -54,13 +54,13 @@
 		</javaModelGenerator>
 
 		<!-- *Mapper.xml配置文件生成的位置 -->
-		<sqlMapGenerator targetPackage="com.shsxt.generator.mapper" targetProject="src/main/java">
+		<sqlMapGenerator targetPackage="com.ego.generator.mapper" targetProject="src/main/java">
 			<!-- 是否让schema作为包后缀 -->
 			<property name="enableSubPackages" value="true"/>
 		</sqlMapGenerator>
 
 		<!-- java mapper接口生成的位置(interface) -->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.shsxt.generator.mapper" targetProject="src/main/java">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.ego.generator.mapper" targetProject="src/main/java">
 			<!-- 是否让schema作为包后缀 -->
 			<property name="enableSubPackages" value="true"/>
 		</javaClientGenerator>
@@ -71,11 +71,17 @@
 				domainObjectName生成的实体类名
 				是否需要mapper配置文件加入sql的where条件查询,需要将enableCountByExample等设为true,会生成一个对应domainObjectName的Example类
 		 -->
+		<table tableName="t_order" domainObjectName="Order"
+		       enableCountByExample="true" enableDeleteByExample="true"
+		       enableSelectByExample="true" enableUpdateByExample="true">
+			<!-- 用于insert时，返回主键的编号 -->
+			<generatedKey column="order_id" sqlStatement="MySql" identity="true"/>
+		</table>
 		<table tableName="t_order_goods" domainObjectName="OrderGoods"
 		       enableCountByExample="true" enableDeleteByExample="true"
 		       enableSelectByExample="true" enableUpdateByExample="true">
 			<!-- 用于insert时，返回主键的编号 -->
-			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+			<generatedKey column="rec_id" sqlStatement="MySql" identity="true"/>
 		</table>
 	</context>
 </generatorConfiguration>

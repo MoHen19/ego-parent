@@ -246,10 +246,9 @@ function GetRTime(end_time) {
  * id:当前选择框的值
  * next：下级选择框显示的内容
  * select_id:level
- * hidden_id:隐藏域id
  */
-function get_category(id, next, select_id, hidden_id) {
-    var url = getProjectName() + '/goods/category/' + id;
+function getCategory(id, next, select_id, hidden_id) {
+    var url = getProjectName() + '/category/' + id;
     // 用户重新选择顶级分类时，重置下级分类为：请选择商品分类，且清空下级分类信息
     var htmlStr = "<option value='0'>请选择商品分类</option>";
     if (0 == id) {
@@ -260,9 +259,10 @@ function get_category(id, next, select_id, hidden_id) {
         if (nextIdNum == 2) {
             nextIdNum++;
             // cat_id_2
-            $("#" + nextIds[0] + "_" + nextIds[1] + "_" + nextIdNum).html(htmlStr);
+            $("#" + nextIds[0] + "_" + nextIds[1] + "_" +
+                nextIdNum).html(htmlStr);
         }
-        //重置分类隐藏域的值为0
+        //重置分类隐藏域的值为 0
         $("#"+hidden_id).val(0);
         return;
     }
@@ -275,7 +275,7 @@ function get_category(id, next, select_id, hidden_id) {
         success: function (result) {
             if (result.length >= 0) {
                 for (i = 0; i < result.length; i++) {
-                    htmlStr += "<option value='" + result[i].id + "'>" + result[i].name + "</option>"
+                    htmlStr += "<option value='" + result[i].id + "'>"+ result[i].name + "</option>"
                 }
                 $("#" + next).html(htmlStr);
             } else {
@@ -284,22 +284,23 @@ function get_category(id, next, select_id, hidden_id) {
         }
     });
 }
-
 /**
  * 获取项目路径
  */
 function getProjectName() {
-    // 获取当前网址 比如：http://localhost:8080/ego-manager-web/product/category/edit/1
+    // 获取当前网址 比如：http://localhost:8080/ego-managerweb/product/category/edit/1
     var curWwwPath = window.document.location.href;
-    // 获取主机地址之后的目录 比如：/ego-manager-web/product/category/edit/1
+    // 获取主机地址之后的目录 比如：/ego-managerweb/product/category/edit/1
     var pathName = window.document.location.pathname;
     var pos = curWwwPath.indexOf(pathName);
     // 获取主机地址 比如：http://localhost:8080
     var localhostPath = curWwwPath.substring(0, pos);
     // 获取带"/"的项目名 比如：/ego-manager-web
-    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    var projectName = pathName.substring(0,
+        pathName.substr(1).indexOf('/') + 1);
     return projectName;
 }
+
 
 // 读取 cookie
 function getCookie(c_name) {
