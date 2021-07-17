@@ -2,6 +2,7 @@ package com.ego.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ego.common.enums.BaseResultEnum;
+import com.ego.common.pojo.Admin;
 import com.ego.common.result.BaseResult;
 import com.ego.manager.service.CookieService;
 import com.ego.sso.service.SSOService;
@@ -39,7 +40,7 @@ public class UserController {
      */
     @RequestMapping("login")
     @ResponseBody
-    public BaseResult login(Admin admin, HttpServletRequest request, HttpServletResponse response,String verify){
+    public BaseResult login(Admin admin, HttpServletRequest request, HttpServletResponse response, String verify){
         //获取验证码
         String pictureVerifyKey = (String) request.getSession().getAttribute("pictureVerifyKey");
         BaseResult baseResult = new BaseResult();

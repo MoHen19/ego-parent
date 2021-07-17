@@ -1,6 +1,7 @@
 package com.ego.manager.interceptor;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.ego.common.pojo.Admin;
 import com.ego.common.util.CookieUtil;
 import com.ego.sso.service.SSOService;
 import org.springframework.beans.factory.annotation.Autowired;
